@@ -1124,7 +1124,7 @@ SUNErrCode N_VDotProdMulti_SComplex(int nvec, N_Vector x, N_Vector* Y,
   /* should have called N_VDotProd */
   if (nvec == 1)
   {
-    dotprods[0] = N_VDotProd_SComplex(x, Y[0]);
+    dotprods[0] = N_VDotProd_SComplex(Y[0], x);
     return SUN_SUCCESS;
   }
 
@@ -1137,7 +1137,7 @@ SUNErrCode N_VDotProdMulti_SComplex(int nvec, N_Vector x, N_Vector* Y,
   {
     yd          = NV_COMPLEX_DATA_CS(Y[i]);
     dotprods[i] = (suncomplextype)ZERO;
-    for (j = 0; j < N; j++) { dotprods[i] += conj(xd[j]) * yd[j]; } //Amihere
+    for (j = 0; j < N; j++) { dotprods[i] += conj(yd[j]) * xd[j]; } //Amihere
   }
 
   return SUN_SUCCESS;
@@ -1160,7 +1160,7 @@ SUNErrCode N_VDotProdMulti_Real(int nvec, N_Vector x, N_Vector* Y,
   /* should have called N_VDotProd */
   if (nvec == 1)
   {
-    dotprods[0] = N_VDotProd_SComplex(x, Y[0]);
+    dotprods[0] = N_VDotProd_SComplex(Y[0] , x);
     return SUN_SUCCESS;
   }
 
@@ -1173,7 +1173,7 @@ SUNErrCode N_VDotProdMulti_Real(int nvec, N_Vector x, N_Vector* Y,
   {
     yd          = NV_COMPLEX_DATA_CS(Y[i]);
     dotprods[i] = ZERO;
-    for (j = 0; j < N; j++) { dotprods[i] += xd[j] * yd[j]; }
+    for (j = 0; j < N; j++) { dotprods[i] += yd[j] * xd[j]; }
   }
 
   return SUN_SUCCESS;
